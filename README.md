@@ -20,6 +20,8 @@ On a second computer we could set up by the following
 
 now you can upload any important setup by just using 
 
+```bash
 > dotfiles "some git commands"
+```
 
 this will behave like git and make dotfiles repo track files or changes
