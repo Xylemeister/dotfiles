@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-
+#alias vim = 'nvim' 
 autoload -Uz compinit
 compinit
 
