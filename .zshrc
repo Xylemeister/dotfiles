@@ -3,7 +3,8 @@
 # confirmations, etc.) must go above this block; everything else may go below.
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
-
+autoload -Uz compinit
+compinit
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
