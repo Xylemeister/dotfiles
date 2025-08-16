@@ -1,12 +1,12 @@
 # My dotfiles 
 
-These are my configs, I am making it public so I can access it from my work computer 
+These are my configuration files. I’m making them public so I can easily access them from my work computer.
 
 
 
 ## how to setup 
 
-On a second computer we could set up by the following
+On a second computer, you can set up your dotfiles as follows:
 
 ```bash
 > alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -18,10 +18,10 @@ On a second computer we could set up by the following
 
 ## how to use 
 
-now you can upload any important setup by just using 
+You can manage any important setup files using the `dotfiles` alias, just like regular Git commands:
 
 ```bash
 > dotfiles "some git commands"
 ```
 
-this will behave like git and make dotfiles repo track files or changes
+This will behave like Git and allow your dotfiles repository to track files and changes all the way from $HOME
