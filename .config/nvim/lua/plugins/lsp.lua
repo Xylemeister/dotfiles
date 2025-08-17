@@ -1,28 +1,87 @@
+-- return {
+--    'neovim/nvim-lspconfig',
+--   dependencies = {
+--     'williamboman/mason.nvim',
+--     'williamboman/mason-lspconfig.nvim',
+--     'hrsh7th/nvim-cmp',
+--     'hrsh7th/cmp-nvim-lsp',
+--   },
+--   config = function()
+--     -- setup mason
+--     require('mason').setup()
+--
+--     -- ensure lsp servers are installed
+--     require('mason-lspconfig').setup({
+--       ensure_installed = { 'pyright', 'clangd', 'lua_ls' },
+--     })
+--
+--     -- setup nvim-cmp capabilities
+--     local capabilities = require('cmp_nvim_lsp').default_capabilities()
+--
+--     -- configure servers
+--     local lspconfig = require('lspconfig')
+--     for _, server in ipairs({ 'pyright', 'clangd', 'lua_ls' }) do
+--         lspconfig[server].setup({ capabilities = capabilities })
+--     end
+--
+--     require('lspconfig').clangd.setup{
+--        cmd = { "clangd", "--compile-commands-dir=build" },
+--     }
+-- end,
+-- }
+
+
 return {
-  'neovim/nvim-lspconfig',
-  dependencies = {
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-    'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-nvim-lsp',
-  },
-  config = function()
-    -- setup mason
-    require('mason').setup()
+    {
+        "mason-org/mason-lspconfig.nvim",
+        opts = {
+            ensure_installed = { "clangd" },
+        },
+        dependencies = {
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
+        },
+    },
 
-    -- ensure lsp servers are installed
-    require('mason-lspconfig').setup({
-      ensure_installed = { 'pyright', 'clangd', 'lua_ls' },
-    })
+    -- Minimal cmp setup (with Tab navigation)
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp", -- LSP completions
+            "hrsh7th/cmp-buffer",   -- buffer words
+        },
+        config = function()
+            local cmp = require("cmp")
 
-    -- setup nvim-cmp capabilities
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            cmp.setup({
+                mapping = cmp.mapping.preset.insert({
+                    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Enter to confirm
+                    ["<C-Space>"] = cmp.mapping.complete(),            -- Ctrl+Space to trigger
+                    ["<Tab>"] = cmp.mapping.select_next_item(),        -- Tab → next suggestion
+                    ["<S-Tab>"] = cmp.mapping.select_prev_item(),      -- Shift+Tab → prev suggestion
+                }),
+                sources = cmp.config.sources({
+                    { name = "nvim_lsp" },
+                    { name = "buffer" },
+                }),
+            })
 
-    -- configure servers
-    local lspconfig = require('lspconfig')
-    for _, server in ipairs({ 'pyright', 'clangd', 'lua_ls' }) do
-        lspconfig[server].setup({ capabilities = capabilities })
-    end
-end,
+            -- Tell LSP servers to use cmp for completion
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            local lspconfig = require("lspconfig")
+            lspconfig.clangd.setup({
+                capabilities = capabilities,
+                on_attach = function(_, bufnr)
+                    -- Format on save
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        buffer = bufnr,
+                        callback = function()
+                            vim.lsp.buf.format()
+                        end,
+                    })
+                end,
+            })
+        end,
+    },
 }
 
