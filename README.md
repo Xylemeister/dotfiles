@@ -25,3 +25,7 @@ You can manage any important setup files using the `dotfiles` alias, just like r
 ```
 
 This will behave like Git and allow your dotfiles repository to track files and changes all the way from $HOME
+
+## dependencies 
+NVIM v0.11.3 (needs to be build from source if you use apt)
+tmux 3.4
