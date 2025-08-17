@@ -6,8 +6,7 @@
 --     'hrsh7th/nvim-cmp',
 --     'hrsh7th/cmp-nvim-lsp',
 --   },
---   config = function()
---     -- setup mason
+--   config = function() -- setup mason
 --     require('mason').setup()
 --
 --     -- ensure lsp servers are installed
