@@ -10,4 +10,5 @@ vim.keymap.set("n", "<CR>", function()
     return ""
   end
   return "<CR>"
-end, { expr = true, silent = true })
+end, {expr = true, silent = true})
+
