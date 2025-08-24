@@ -34,7 +34,7 @@ return {
     {
         "mason-org/mason-lspconfig.nvim",
         opts = {
-            ensure_installed = { "clangd" },
+            ensure_installed = { "clangd", "gopls"},
         },
         dependencies = {
             { "mason-org/mason.nvim", opts = {} },
@@ -68,18 +68,37 @@ return {
             -- Tell LSP servers to use cmp for completion
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             local lspconfig = require("lspconfig")
-            lspconfig.clangd.setup({
-                capabilities = capabilities,
-                on_attach = function(_, bufnr)
-                    -- Format on save
+            -- lspconfig.clangd.setup({
+            --     capabilities = capabilities,
+            --     on_attach = function(_, bufnr)
+            --         -- Format on save
+            --         vim.api.nvim_create_autocmd("BufWritePre", {
+            --             buffer = bufnr,
+            --             callback = function()
+            --                 vim.lsp.buf.format()
+            --             end,
+            --         })
+            --     end,
+            -- }) 
+            local on_attach = function(_, bufnr)
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         buffer = bufnr,
                         callback = function()
                             vim.lsp.buf.format()
                         end,
                     })
-                end,
-            })
+            end
+
+            local language = { "clangd", "gopls"}
+
+            for _, lsp in ipairs(language) do 
+              lspconfig[lsp].setup(
+                {
+                  on_attach = on_attach, 
+                  capabilities = capabilities,
+                }
+              )
+            end
         end,
     },
 }
