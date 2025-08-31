@@ -99,6 +99,20 @@ return {
                 }
               )
             end
+
+            lspconfig.gopls.setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+              settings = {
+                gopls ={
+                  gofumpt = true,
+                  analyses = {ununsedparams = true},
+                  staticcheck = true, 
+                  usePlaceholders = true,
+                  completeUnimported = true,
+                },
+              },
+            })
         end,
     },
 }
