@@ -89,16 +89,11 @@ return {
                     })
             end
 
-            local language = { "clangd", "gopls"}
+            lspconfig.clangd.setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+            })
 
-            for _, lsp in ipairs(language) do 
-              lspconfig[lsp].setup(
-                {
-                  on_attach = on_attach, 
-                  capabilities = capabilities,
-                }
-              )
-            end
 
             lspconfig.gopls.setup({
               on_attach = on_attach,
@@ -106,8 +101,8 @@ return {
               settings = {
                 gopls ={
                   gofumpt = true,
-                  analyses = {ununsedparams = true},
-                  staticcheck = true, 
+                  analyses = {unusedparams = true},
+                  staticcheck = true,
                   usePlaceholders = true,
                   completeUnimported = true,
                 },
