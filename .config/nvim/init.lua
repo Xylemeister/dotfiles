@@ -1,4 +1,4 @@
 require('config.options')
 require('config.keybinds')
 require('config.lazy')
-vim.cmd("colorscheme carbonfox")
+vim.opt.termguicolors = true 
