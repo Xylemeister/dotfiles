@@ -34,7 +34,7 @@ return {
     {
         "mason-org/mason-lspconfig.nvim",
         opts = {
-            ensure_installed = { "clangd", "gopls"},
+            ensure_installed = { "clangd", "gopls", "pyright"},
         },
         dependencies = {
             { "mason-org/mason.nvim", opts = {} },
@@ -108,6 +108,12 @@ return {
                 },
               },
             })
+
+            lspconfig.pyright.setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+            })
+
         end,
     },
 }
