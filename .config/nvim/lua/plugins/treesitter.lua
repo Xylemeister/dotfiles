@@ -5,8 +5,8 @@ return {
 	local configs = require("nvim-treesitter.configs")
 	configs.setup({
 	    highlight = { enable = true},
-	    indent = {enable = false}, 
-	    autotage = {enable = true},
+	    indent = {enable = false},
+	    autotag = {enable = true},
 	    ensure_installed = {"lua", "markdown", "c", "cpp", "go", "python"},
 	})
     end
