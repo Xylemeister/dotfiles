@@ -34,14 +34,16 @@ return {
     {
         "mason-org/mason-lspconfig.nvim",
         opts = {
-            ensure_installed = { "clangd", "gopls", "pyright"},
+            ensure_installed = { "clangd", "gopls", "pyright", "jdtls"},
         },
         dependencies = {
             { "mason-org/mason.nvim", opts = {} },
             "neovim/nvim-lspconfig",
         },
     },
-
+    {
+        "mfussenegger/nvim-jdtls",
+    },
     -- Minimal cmp setup (with Tab navigation)
     {
         "hrsh7th/nvim-cmp",
@@ -64,6 +66,7 @@ return {
                     { name = "buffer" },
                 }),
             })
+
 
             -- Tell LSP servers to use cmp for completion
             local capabilities = require("cmp_nvim_lsp").default_capabilities()

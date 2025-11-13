@@ -7,7 +7,7 @@ return {
 	    highlight = { enable = true},
 	    indent = {enable = false},
 	    autotag = {enable = true},
-	    ensure_installed = {"lua", "markdown", "c", "cpp", "go", "python"},
+	    ensure_installed = {"lua", "markdown", "c", "cpp", "go", "python", "java"},
 	})
     end
 }
